@@ -1,0 +1,26 @@
+{
+  "name": "demo-2-service-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "mochawesome": "^3.0.2",
+    "supertest": "^3.1.0"
+  },
+  "scripts": {
+    "test": "mocha --reporter mochawesome --opts ./test/mocha.opts test/**/*.spec.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
