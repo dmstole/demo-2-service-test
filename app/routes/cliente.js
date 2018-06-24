@@ -1,50 +1,35 @@
 module.exports = app => {
 
-   const _root = "clientes";
-
-   const Db = require('../db')();
-   const Cliente = require('../models/Cliente')();
+   const _cliente = app.datasource.models.Cliente;
 
    app.get(`/clientes`, (req, res) => {
-
-      const _cliente = new Cliente(new Db());
-
-      _cliente.obter({}, (err, result) =>
-         _responseDefault(res, err, result));
-
+      _cliente.findAll({})
+         .then(data => _responseDefault(res, null, data))
+         .catch(err => _responseDefault(res, err, null));
    });
 
    app.get(`/cliente/:id`, (req, res) => {
-
-      const _cliente = new Cliente(new Db());
-
-      _cliente.obter(req.params, (err, result) =>
-         _responseDefault(res, err, result));
-
+      _cliente.findOne(req.params)
+         .then(data => _responseDefault(res, null, data))
+         .catch(err => _responseDefault(res, err, null));
    });
 
    app.post(`/cliente`, (req, res) => {
-
-      const _cliente = new Cliente(new Db());
-
-      _cliente.criar(req.body, (err, result) =>
-         _responseMensagem(res, err, "Criação realizada com sucesso."));
+      _cliente.create(req.body)
+         .then(() => _responseMensagem(res, null, "Criação realizada com sucesso."))
+         .catch(err => _responseDefault(res, err, null));
    });
 
-   app.put(`/cliente`, (req, res) => {
-
-      const _cliente = new Cliente(new Db());
-
-      _cliente.atualizar(req.body, (err, result) =>
-         _responseMensagem(res, err, "Atualização realizada com sucesso."));
+   app.put(`/cliente/:id`, (req, res) => {
+      _cliente.update(req.body, { where: req.params })
+         .then(() => _responseMensagem(res, null, "Atualização realizada com sucesso."))
+         .catch(err => _responseDefault(res, err, null));
    });
 
    app.delete(`/cliente/:id`, (req, res) => {
-
-      const _cliente = new Cliente(new Db());
-
-      _cliente.atualizar(req.params, (err, result) =>
-         _responseMensagem(res, err, "Remoção realizada com sucesso."));
+      _cliente.destroy({ where: req.params })
+         .then(() => _responseMensagem(res, null, "Remoção realizada com sucesso."))
+         .catch(err => _responseDefault(res, err, null));
    });
 
    function _responseDefault(res, err, result) {
