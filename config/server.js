@@ -4,12 +4,12 @@ module.exports = function () {
    const cookieParser = require('cookie-parser');
    const bodyParser = require('body-parser');
 
-   const config = require('./config');
-   const datasource = require('./datasource');
-
    const app = express();
 
+   const config = require('./config');
    app.config = config;
+
+   const datasource = require('./datasource');
    app.datasource = datasource(app);
 
    app.use(bodyParser.urlencoded({

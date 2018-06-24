@@ -1,24 +1,25 @@
-var Sequelize = require('sequelize');
-var fs = require('fs');
-var path = require('path');
+module.exports = app => {
 
-var database = null;
+   const Sequelize = require('sequelize');
+   const fs = require('fs');
+   const path = require('path');
 
-var loadModels = function (sequelize) {
-   var dir = path.join(__dirname, '../app/models');
-   var models = [];
-   fs.readdirSync(dir).forEach(file => {
-      var modelDir = path.join(dir, file);
-      var model = sequelize.import(modelDir);
-      models[model.name] = model;
-   });
-   return models;
-};
+   let database = null;
 
-module.exports = function (app) {
+   const loadModels = sequelize => {
+      const dir = path.join(__dirname, '../app/models');
+      const models = [];
+      fs.readdirSync(dir).forEach(file => {
+         const modelDir = path.join(dir, file);
+         const model = sequelize.import(modelDir);
+         models[model.name] = model;
+      });
+      return models;
+   };
+
    if (!database) {
-      var config = app.config;
-      var sequelize = new Sequelize(
+      const config = app.config;
+      const sequelize = new Sequelize(
          config.database,
          config.username,
          config.password,
@@ -36,5 +37,4 @@ module.exports = function (app) {
    }
 
    return database;
-
 };

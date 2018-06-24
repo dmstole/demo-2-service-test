@@ -10,7 +10,9 @@ module.exports = function (sequelize, DataType) {
          type: DataType.STRING,
          allowNull: false,
          validate: {
-            notEmpty: true
+            notEmpty: {
+               msg: "O campo nome é obrigatório."
+            }
          }
       },
 
@@ -18,7 +20,9 @@ module.exports = function (sequelize, DataType) {
          type: DataType.STRING,
          allowNull: false,
          validate: {
-            notEmpty: true
+            notEmpty: {
+               msg: "O campo logradouro é obrigatório."
+            }
          }
       },
 
@@ -26,7 +30,12 @@ module.exports = function (sequelize, DataType) {
          type: DataType.INTEGER,
          allowNull: false,
          validate: {
-            notEmpty: true
+            notEmpty: {
+               msg: "O campo número é obrigatório."
+            },
+            isInt: {
+               msg: "O campo número é inválido."
+            }
          }
       },
 
@@ -34,7 +43,9 @@ module.exports = function (sequelize, DataType) {
          type: DataType.STRING,
          allowNull: false,
          validate: {
-            notEmpty: true
+            notEmpty: {
+               msg: "O campo bairro é obrigatório."
+            }
          }
       },
 
@@ -42,7 +53,9 @@ module.exports = function (sequelize, DataType) {
          type: DataType.STRING,
          allowNull: false,
          validate: {
-            notEmpty: true
+            notEmpty: {
+               msg: "O campo cidade é obrigatório."
+            }
          }
       },
 
@@ -50,7 +63,9 @@ module.exports = function (sequelize, DataType) {
          type: DataType.STRING,
          allowNull: false,
          validate: {
-            notEmpty: true
+            notEmpty: {
+               msg: "O campo estado é obrigatório."
+            }
          }
       }
    });
